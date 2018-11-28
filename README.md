@@ -40,3 +40,39 @@ pegasus.saddle(elements);
 </html>
 ```
 
+##### navigate to another hash
+```javascript
+const pegasus = new Pegasus('#home');
+pegasus.siddle(elements);
+
+// for go to another use the method fly
+pegasus.fly('#hash') // or without # the result is equal
+```
+Example with button
+###### HTML
+```html
+<div id="home">
+	<h2>This is the Home</h2>
+</div>
+<div id="about">
+	<h2>This is the about</h2>
+</div>
+<button id="goToAbout">About</button>
+<button id="goToHome">Home</button>
+```
+###### JS
+```javascript
+let Home = document.getElementById('home');
+let About = document.getElementById('About');
+const elements =[
+	{$element: Home, hash:'#home'},
+	{$element: About: hash: '#about'}
+];
+const pegasus = new Pegasus('home');
+pegasus.siddle(elements);
+
+$btnHome = document.getElementById('goToHome');
+$btnAbout = document.getElementById('goToAbout');
+$btnHome.addEventListener('click',()=>pegasus.fly('home'));
+$btnAbout.addEventListener('click',()=>pegasus.fly('about'));
+```
