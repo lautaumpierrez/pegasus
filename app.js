@@ -17,5 +17,4 @@ window.onload=()=>{
 	};
 	const pegasus = new Pegasus({config,defaultHash:'#holas'});
 	pegasus.saddle(elements);
-
 }
