@@ -13,7 +13,7 @@ const elements = [
 		hash: '#holas'
 	}
 ]
-const pegasus = new Pegasus('#holas');
+const pegasus = new Pegasus({config:{router:false},defualtHash'#holas'});
 pegasus.saddle(elements);
 ```
 ###### index.html
@@ -42,7 +42,7 @@ pegasus.saddle(elements);
 
 ##### navigate to another hash
 ```javascript
-const pegasus = new Pegasus('#home');
+const pegasus = new Pegasus({config:{router:false},defualtHash'#home'});
 pegasus.saddle(elements);
 
 // for go to another use the method fly
