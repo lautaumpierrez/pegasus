@@ -1,7 +1,8 @@
 # Hash Router with components for example show section when the hash in url is pets or about...
+##### CDN 
+[https://cdn.jsdelivr.net/gh/lautaumpierrez/pegasus@1.0/build/pegasus.min.js](https://cdn.jsdelivr.net/gh/lautaumpierrez/pegasus@1.0/build/pegasus.min.js)
 
 The use is very simple, for example:
-
 ###### app.js
 ```javascript
 const elements = [
