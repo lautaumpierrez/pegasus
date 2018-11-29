@@ -83,51 +83,51 @@ if you need use Pegasus like a router, you need set the config with the value ro
 and send the template for your 404 error.
 ###### JS - app.js
 ```javascript
-	let Home = document.getElementById('home');
-	let About = document.getElementById('About');
-	const elements =[
-		{$element: Home, hash:'#home'},
-		{$element: About: hash: '#about'}
-	];
-	const config = {
-		router: true,
-		template404: document.getElementById('404template');
-	};
-	const pegasus = new Pegasus({config, defaultHash: 'Home'});
-	pegasus.saddle(elements);
-	$btnHome = document.getElementById('goToHome');
-	$btnAbout = document.getElementById('goToAbout');
-	$btnHome.addEventListener('click',()=>pegasus.fly('home'));
-	$btnAbout.addEventListener('click',()=>pegasus.fly('about'));
-		
+let Home = document.getElementById('home');
+let About = document.getElementById('About');
+const elements =[
+	{$element: Home, hash:'#home'},
+	{$element: About: hash: '#about'}
+];
+const config = {
+	router: true,
+	template404: document.getElementById('404template');
+};
+const pegasus = new Pegasus({config, defaultHash: 'Home'});
+pegasus.saddle(elements);
+$btnHome = document.getElementById('goToHome');
+$btnAbout = document.getElementById('goToAbout');
+$btnHome.addEventListener('click',()=>pegasus.fly('home'));
+$btnAbout.addEventListener('click',()=>pegasus.fly('about'));
+	
 ```
 ###### HTML - index.html
 ```html
-	<div id="home">
-		<button id="goToAbout">About</button>
-		<h2>This is the Home</h2>
-	</div>
-	<div id="about">
-		<button id="goToHome">Home</button>
-		<h2>This is the about</h2>
-	</div>
-	<div id="404template">
-		<h2>this is the 404 template</h2>
-	</div>
+<div id="home">
+	<button id="goToAbout">About</button>
+	<h2>This is the Home</h2>
+</div>
+<div id="about">
+	<button id="goToHome">Home</button>
+	<h2>This is the about</h2>
+</div>
+<div id="404template">
+	<h2>this is the 404 template</h2>
+</div>
 ```
 The elements / components has an a callback optional method, like this 
 ```javascript
 
-	let Home = document.getElementById('home');
-	let About = document.getElementById('About');
-	const elements =[
-		{$element: Home, hash:'#home', callback: ()=>{
-			console.log('HOME ROUTE');
-		}},
-		{$element: About: hash: '#about'}
-	];
-	// After build the object ...
-	pegasus.saddle(elements);
+let Home = document.getElementById('home');
+let About = document.getElementById('About');
+const elements =[
+	{$element: Home, hash:'#home', callback: ()=>{
+		console.log('HOME ROUTE');
+	}},
+	{$element: About: hash: '#about'}
+];
+// After build the object ...
+pegasus.saddle(elements);
 
 
 ``` 
