@@ -43,7 +43,7 @@ pegasus.saddle(elements);
 ##### navigate to another hash
 ```javascript
 const pegasus = new Pegasus('#home');
-pegasus.siddle(elements);
+pegasus.saddle(elements);
 
 // for go to another use the method fly
 pegasus.fly('#hash') // or without # the result is equal
@@ -69,7 +69,7 @@ const elements =[
 	{$element: About: hash: '#about'}
 ];
 const pegasus = new Pegasus('home');
-pegasus.siddle(elements);
+pegasus.saddle(elements);
 
 $btnHome = document.getElementById('goToHome');
 $btnAbout = document.getElementById('goToAbout');
