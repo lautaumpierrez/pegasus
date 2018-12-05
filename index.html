@@ -2,21 +2,120 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+	<title>Example</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+	<link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="./app.css">
 </head>
 <body>
 	<div id="container">
-		<div id="hello">
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aperiam praesentium tempora labore at, eos, distinctio autem, culpa id assumenda consequatur a architecto quod dolore illo ex blanditiis iusto reiciendis.</p>
+		<nav class="navbar is-info is-spaced">
+			<div class="navbar-brand">
+				<a class="navbar-item">
+					<span class="title is-4 has-text-white has-text-weight-light">
+						Pegasus Library
+					</span>
+				</a>
+				<div class="navbar-burger burger" id="navbar-burger">
+			      <span></span>
+			      <span></span>
+			      <span></span>
+			    </div>
+			</div>
+			<div class="navbar-menu" id="navbar-menu">
+				<div class="navbar-start"></div>
+				<div class="navbar-end">
+					<a pegasusfly="Home" class="navbar-item">
+						Home
+					</a>
+					<a pegasusfly="Contacto" class="navbar-item" id="contact-link">
+						Contacto
+					</a>
+					<a href="https://github.com/lautaumpierrez/pegasus" class="navbar-item github-icon" target="_blank">
+						<i class="devicon-github-plain"></i>
+					</a>
+				</div>
+			</div>
+		</nav>
+		<div id="home" class="animated fadeInDown">
+			<section class="hero">
+				<div class="hero-body">
+					<div class="container">
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aperiam praesentium tempora labore at, eos, distinctio autem, culpa id assumenda consequatur a architecto quod dolore illo ex blanditiis iusto reiciendis.</p>
+						<br>
+						<div class="has-text-centered">
+							<button class="button is-link is-large" pegasusFly="Home&example-modal">
+								Open modal
+							</button>
+						</div>
+					</div>
+				</div>
+			</section>
 		</div>
-		<div id="holas">
-			<strong>Buenas tardes &#x1F60E;</strong>
+		<div id="example-modal">
+			<div class="close-pegasus-modal-bg pegasus-bg-modal"></div>
+			<div class="pegasus-modal animated fadeInDown">
+				<div class="pegasus-modal-head">
+					<span class="close-pegasus-modal-cross"><i class="material-icons" id="cross">close</i></span>
+				</div>
+				<div class="pegasus-modal-body has-text-centered">
+					<p class="title has-text-weight-light">
+						See the url...
+					</p>
+					<p>
+						 This is an a example for use the pegasus library...
+						 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit nisi nulla sed, labore reprehenderit perspiciatis mollitia, dolor, possimus quas, rem repellat. A officia maiores, blanditiis tempora nobis. Temporibus, iusto, ipsa.
+					</p>
+				</div>
+			</div>
 		</div>
-		<div id="404Template">
-			<h2>Error 404</h2>
+		<div id="contacto" class="contact animated fadeInUp">
+			<section class="hero">
+				<div class="hero-body">
+					<div class="container">
+						<div class="columns">
+							<div class="column is-6 is-offset-3">
+								<div class="box founder">
+									<div class="has-text-centered">
+										<img src="./assets/founder.lauti.png" alt="">
+									</div>
+									<hr>
+									<div class="content-founder level">
+										<a href="https://twitter.com/lautaumpierrez" target="_blank" class="button level-item is-white is-large socialnetwork-container">
+											<i class="devicon-twitter-plain colored"></i>
+											<span class="has-text-grey has-text-weight-light">&nbsp; My twitter</span>
+										</a>
+										<a href="https://github.com/lautaumpierrez" target="_blank" class="button level-item is-black is-large socialnetwork-container">
+											<i class="devicon-github-plain-wordmark"></i>
+											<span class="has-text-grey-lighter has-text-weight-light">&nbsp; My github</span>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
 		</div>
+		<div id="404Template" class="has-text-centered">
+			<p class="title is-1 has-text-weight-light">
+				Error 404
+			</p>
+		</div>
+		<footer class="footer">
+		  	<div class="content has-text-centered">
+		  		Resources: <a href="https://bulma.io" target="_blank">BulmaCSS</a>,
+		  		<a href="https://daneden.github.io/animate.css/" target="_blank">AnimateCSS</a>,
+		  		<a href="http://konpa.github.io/devicon/" target="_blank">DevIcon</a>
+		  	</div>
+		</footer>
 	</div>
-	<script type="text/javascript" src="./src/pegasus.js"></script>
+	<script type="text/javascript" src="./build/pegasus.min.js"></script>
 	<script src="./app.js"></script>
+
 </body>
 </html>

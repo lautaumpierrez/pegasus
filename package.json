@@ -1,0 +1,26 @@
+{
+  "name": "pegasus-library",
+  "version": "2.0.0",
+  "description": "[https://cdn.jsdelivr.net/gh/lautaumpierrez/pegasus@1.0/build/pegasus.min.js](https://cdn.jsdelivr.net/gh/lautaumpierrez/pegasus@1.0/build/pegasus.min.js)",
+  "main": "app.js",
+  "scripts": {
+    "babel": "babel --presets es2015 src/pegasus.js -o build/pegasus.min.js",
+    "start": "http-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lautaumpierrez/pegasus.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lautaumpierrez/pegasus/issues"
+  },
+  "homepage": "https://github.com/lautaumpierrez/pegasus#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
+    "http-server": "^0.11.1"
+  }
+}
