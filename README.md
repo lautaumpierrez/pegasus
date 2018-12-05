@@ -5,16 +5,17 @@
 The use is very simple, for example:
 ###### app.js
 ```javascript
+// The hashes are case sensitive
 const elements = [
 	{
 		$element: document.getElementById('hello'),
-		hash: '#hello'
+		hash: '#hello' // Lower Case
 	},{
 		$element: document.getElementById('holas'),
-		hash: '#holas'
+		hash: '#holas' // Lower Case
 	}
 ]
-const pegasus = new Pegasus({config:{router:false},defaultHash'#holas'});
+const pegasus = new Pegasus({config:{router:false,multihash:false},defaultHash'#holas'});
 pegasus.saddle(elements);
 ```
 ###### index.html
@@ -43,7 +44,7 @@ pegasus.saddle(elements);
 
 ##### navigate to another hash
 ```javascript
-const pegasus = new Pegasus({config:{router:false},defaultHash'#home'});
+const pegasus = new Pegasus({config:{router:false,multihash:false},defaultHash'#home'});
 pegasus.saddle(elements);
 
 // for go to another use the method fly
@@ -69,7 +70,7 @@ const elements =[
 	{$element: Home, hash:'#home'},
 	{$element: About: hash: '#about'}
 ];
-const pegasus = new Pegasus({config:{route:false},defaultHash:'home'});
+const pegasus = new Pegasus({config:{router:false,multihash:false},defaultHash:'home'});
 pegasus.saddle(elements);
 
 $btnHome = document.getElementById('goToHome');
@@ -90,6 +91,7 @@ const elements =[
 	{$element: About: hash: '#about'}
 ];
 const config = {
+	multihash: false,
 	router: true,
 	template404: document.getElementById('404template');
 };
@@ -128,6 +130,35 @@ const elements =[
 ];
 // After build the object ...
 pegasus.saddle(elements);
+```
+Use the multihash feature 
+##### JS - app.js
+```javascript
+let Home = document.getElementById('home');
+let About = document.getElementById('About');
+let Dialog = document.getElementById('dialog-like-a-modal');
+const elements =[
+	{$element: Home, hash:'#home'},
+	{$element: About: hash: '#about'},
+	{$element: Dialog, hash: 'dialog'}
+];
+const config = {
+	multihash: true,
+	router: true,
+	template404: document.getElementById('404template');
+};
+const pegasus = new Pegasus({config,defaultHash: 'home'});
+pegasus.saddle(elements);
+// Pegasus fly method recive an a Array or a String ...
+// for example : pegasus.fly('about'); or pegasus.fly(['home','dialog']) for load home and dialog elements...;
 
-
+pegasus.fly(['home', 'dialog']);
+```
+Use the pegasusfly attribute
+##### HTML - index.html
+```html
+<button pegasusfly="about">Go to about page</button>
+<!-- If you need go to a multiple hashs --> 
+<button pegasusfly="about&dialog"></button>
+<!-- Use the "Ampersand"(&) for split the hashs -->
 ``` 
