@@ -3,6 +3,7 @@
 }
 body{
 	background-color: #fff;
+	padding-bottom: 10vh;
 }
 #example-modal{
 	position: fixed;
@@ -71,7 +72,7 @@ body{
 	transform: rotate(10deg);
 }
 .footer{
-	min-height: 10vh;
+	height: 10vh;
 	padding: 20px;
 	position: fixed;
 	width: 100%;

@@ -8,7 +8,7 @@ window.onload=()=>{
 			hash: '#contacto',
 		},{
 			$element: document.getElementById('example-modal'),
-			hash:'example-modal',
+			hash:'#example-modal',
 		}
 	]
 	const config = {
