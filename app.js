@@ -2,10 +2,10 @@ window.onload=()=>{
 	const elements = [
 		{
 			$element: document.getElementById('home'),
-			hash: 'Home',
+			hash: '#home',
 		},{
 			$element: document.getElementById('contacto'),
-			hash: 'Contacto',
+			hash: '#contacto',
 		},{
 			$element: document.getElementById('example-modal'),
 			hash:'example-modal',
@@ -17,7 +17,13 @@ window.onload=()=>{
 		template404: document.getElementById('404Template')
 	};
 	const $container = document.getElementById('container');
-	const pegasus = new Pegasus({config,$container,defaultHash:'#Home'});
+	const pegasus = new Pegasus({
+		router: false,
+		config,
+		$container,
+		defaultHash:'#home',
+		baseURL: '',
+	});
 	window.pegasus = pegasus;
 	pegasus.saddle(elements);
 	// Events	

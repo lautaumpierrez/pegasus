@@ -1,7 +1,9 @@
 class Pegasus{
-	constructor({ router,config,baseURL, defaultRoute, $container }){
-		if(router) return new PegasusRouter({config, defaultRoute,baseURL, $container});
-		else return new PegasusHasher({config, defaultRoute, $container});
+	constructor({ router,config,baseURL, defaultRoute, defaultHash,$container }){
+		if(router)
+			return new PegasusRouter({config, defaultRoute,baseURL, $container});
+		else
+			return new PegasusHasher({config, defaultHash, $container});
 	}
 }
 
