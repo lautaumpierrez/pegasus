@@ -1,4 +1,11 @@
-class Pegasus {
+class Pegasus{
+	constructor({ router,config,baseURL, defaultRoute, $container }){
+		if(router) return new PegasusRouter({config, defaultRoute,baseURL, $container});
+		else return new PegasusHasher({config, defaultRoute, $container});
+	}
+}
+
+class PegasusHasher {
 	constructor({defaultHash, config,$container}){
 		this.defaultHash = defaultHash;
 		if(config.multihash == undefined) throw new Error("set the prop <multihash> in the object of configuration");
@@ -35,7 +42,7 @@ class Pegasus {
 			this.changeUrl();
 		})
 		else this.changeUrl();
-		window.onpopstate = ()=>this.changeUrl();
+		window.addEventListener('hashchange',()=>this.changeUrl());
 	}
 	changeUrl(){
 		var currentHash = undefined;
@@ -153,5 +160,119 @@ class Pegasus {
 				this.fly(link);
 			})
 		});
+	}
+}
+
+class PegasusRouter {
+	constructor({config, defaultRoute, baseURL,$container}){
+		if(config === undefined) throw new Error('Need config Prop');
+		if(defaultRoute === undefined) throw new Error('Need defaultRoute Prop');
+		if($container === undefined) throw new Error('Need $container Prop');
+		if(baseURL == undefined) throw new Error('Need baseURL Prop');
+		this.config = config;
+		console.log(baseURL)
+		this.defaultRoute = defaultRoute;
+		this.$container = $container;
+		if(window.location.hash == ''){
+			window.history.pushState({},'prueba',baseURL+'/');
+			window.location.hash = '#/';
+		}
+	}
+	saddle(elements){
+		if(window.location.hash == undefined)
+				window.location.hash = this.defaultRoute;
+				console.log(window.location.href);
+		this.$container.innerHTML ='';
+		this.elements = [];
+		elements.map((item)=>{
+			let route = item.route;
+			route = route.split('#').join('');
+			if(this.isHTMLElement(item.$element))
+			{
+				this.elements.push({
+					route,
+					$element: item.$element.cloneNode(true)
+				});
+			}else{
+				this.elements.push({
+					route,
+					$element: item.$element
+				});
+			}
+		});
+		console.log(this.elements);
+		this.listenRoute();
+		this.changeRoute();
+	}
+	listenRoute(){
+		window.addEventListener('hashchange',()=>this.changeRoute());
+	}
+	changeRoute(){
+		let currentRoute = window.location.hash;
+		currentRoute=currentRoute.split('#').join('');
+		this.dieOrlive(currentRoute);
+	}
+	dieOrlive(currentRoute){
+		this.$container.innerHTML = '';
+		let $element = this.elements.find(element=>element.route == currentRoute);
+		console.log(currentRoute)
+		if($element != undefined){
+			if(this.isHTMLElement($element.$element))
+				this.$container.appendChild($element.$element);
+			else
+				this.$container.innerHTML += $element.$element;
+		}else{
+			let $element404 = this.elements.find(el=> el.route == '*');
+			if($element404){
+				if(this.isHTMLElement($element404.$element)){
+						this.$container.appendChild($element404.$element);
+				}else{
+					this.$container.innerHTML = $element404.$element;
+				}
+			}
+		}
+
+	}
+	dataBinding(){
+		let $pegasus_fly = document.querySelectorAll('[pegasusfly]');
+		$pegasus_fly.forEach($linkElement=>{
+			let link = $linkElement.getAttribute('pegasusFly');
+			$linkElement.addEventListener('click', ()=>{
+				this.fly(link);
+			})
+		});
+	}
+	addRoute(element){
+		if(this.isHTMLElement(element.$element))
+		{
+			this.elements.push({
+				route: element.route,
+				$element: element.$element.cloneNode(true)
+			});
+		}else{
+			this.elements.push({
+				route: element.route,
+				$element: element.$element
+			});
+		}
+		console.log(this.elements)
+	}
+	go(position){
+		if(position == undefined) throw new Error('Error, the position is an a number for example -1');
+		window.history.go(position);
+	}
+	isHTMLElement(obj){
+		try {
+			//Using W3 DOM2 (works for FF, Opera and Chrome)
+			return obj instanceof HTMLElement;
+		}
+		catch(e){
+			//Browsers not supporting W3 DOM2 don't have HTMLElement and
+			//an exception is thrown and we end up here. Testing some
+			//properties that all elements have (works on IE7)
+			return (typeof obj==="object") &&
+			(obj.nodeType===1) && (typeof obj.style === "object") &&
+			(typeof obj.ownerDocument ==="object");
+		}
 	}
 }

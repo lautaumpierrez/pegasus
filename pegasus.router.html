@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="container">
+		<div id="homepage">
+			<h2>Hello</h2>
+		</div>
+		<div id="contactpage">
+			<h2>Hello world</h2>
+		</div>
+		<div id="template404">
+			<h2>404 Error ...</h2>
+		</div>
+	</div>
+	<script src="../build/pegasus.min.js"></script>
+	<script>
+		window.pegasusRouter = new Pegasus({
+			config:{},
+			router: true,
+			defaultRoute: '/',
+			baseURL:'http://localhost:5000/pegasus.router',
+			$container:document.getElementById('container') 
+		})
+		const elements = [
+			{
+				$element: document.getElementById('homepage'),
+				route: '/'	
+			},
+			{
+				$element: document.getElementById('contactpage'),
+				route: '/contact'	
+			},
+			{
+				$element: `<div id="buenas">
+								<h2>Buenas Tardes</h2>
+							</div>`,
+				route: '/buenas'
+			},
+			{
+				$element: document.getElementById('template404'),
+				route: '*'
+			}
+		];
+		pegasusRouter.saddle(elements);
+
+	</script>
+</body>
+</html>
