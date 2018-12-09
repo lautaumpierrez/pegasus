@@ -172,7 +172,6 @@ class PegasusRouter {
 		if($container === undefined) throw new Error('Need $container Prop');
 		if(baseURL == undefined) throw new Error('Need baseURL Prop');
 		this.config = config;
-		console.log(baseURL)
 		this.defaultRoute = defaultRoute;
 		this.$container = $container;
 		if(window.location.hash == ''){
@@ -180,29 +179,31 @@ class PegasusRouter {
 			window.location.hash = '#/';
 		}
 	}
-	saddle(elements){
+	saddle(elements=[]){
 		if(window.location.hash == undefined)
-				window.location.hash = this.defaultRoute;
-				console.log(window.location.href);
+			window.location.hash = this.defaultRoute;
 		this.$container.innerHTML ='';
 		this.elements = [];
 		elements.map((item)=>{
 			let route = item.route;
 			route = route.split('#').join('');
+			if(item.callback == null)
+				item.callback = ()=>{};
 			if(this.isHTMLElement(item.$element))
 			{
 				this.elements.push({
 					route,
-					$element: item.$element.cloneNode(true)
+					$element: item.$element.cloneNode(true),
+					callback: item.callback
 				});
 			}else{
 				this.elements.push({
 					route,
-					$element: item.$element
+					$element: item.$element,
+					callback: item.callback
 				});
 			}
 		});
-		console.log(this.elements);
 		this.listenRoute();
 		this.changeRoute();
 	}
@@ -217,12 +218,14 @@ class PegasusRouter {
 	dieOrlive(currentRoute){
 		this.$container.innerHTML = '';
 		let $element = this.elements.find(element=>element.route == currentRoute);
-		console.log(currentRoute)
 		if($element != undefined){
 			if(this.isHTMLElement($element.$element))
 				this.$container.appendChild($element.$element);
 			else
 				this.$container.innerHTML += $element.$element;
+			if($element.callback == null)
+				$element.callback = ()=>{};
+			$element.callback();
 		}else{
 			let $element404 = this.elements.find(el=> el.route == '*');
 			if($element404){
@@ -235,29 +238,41 @@ class PegasusRouter {
 		}
 
 	}
+	Page({template, route, action}){
+		this.addRoute({
+			$element: template,
+			route: route,
+			callback: action,
+		});
+	}
 	dataBinding(){
 		let $pegasus_fly = document.querySelectorAll('[pegasusfly]');
 		$pegasus_fly.forEach($linkElement=>{
 			let link = $linkElement.getAttribute('pegasusFly');
+			link = link.split('/').join('');
 			$linkElement.addEventListener('click', ()=>{
-				this.fly(link);
+				this.fly(`/${link}`);
 			})
 		});
 	}
 	addRoute(element){
+		if(element.callback == null)
+			element.callback = ()=>{};
 		if(this.isHTMLElement(element.$element))
 		{
 			this.elements.push({
 				route: element.route,
-				$element: element.$element.cloneNode(true)
+				$element: element.$element.cloneNode(true),
+				callback: element.callback
 			});
 		}else{
 			this.elements.push({
 				route: element.route,
-				$element: element.$element
+				$element: element.$element,
+				callback: element.callback
 			});
 		}
-		console.log(this.elements)
+		this.saddle(this.elements);
 	}
 	go(position){
 		if(position == undefined) throw new Error('Error, the position is an a number for example -1');
