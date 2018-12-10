@@ -166,12 +166,13 @@ class PegasusHasher {
 }
 
 class PegasusRouter {
-	constructor({config, defaultRoute, baseURL,$container}){
-		if(config === undefined) throw new Error('Need config Prop');
+	constructor({defaultRoute, baseURL,$container}){
+		// if(config === undefined) throw new Error('Need config Prop');
 		if(defaultRoute === undefined) throw new Error('Need defaultRoute Prop');
 		if($container === undefined) throw new Error('Need $container Prop');
 		if(baseURL == undefined) throw new Error('Need baseURL Prop');
-		this.config = config;
+		// this.config = config;
+		this.currentRoute = '';
 		this.defaultRoute = defaultRoute;
 		this.$container = $container;
 		if(window.location.hash == ''){
@@ -215,18 +216,32 @@ class PegasusRouter {
 		currentRoute=currentRoute.split('#').join('');
 		this.dieOrlive(currentRoute);
 	}
+	waitForCallback(el)
+	{
+		return new Promise((resolve)=>{
+			if(el.callback == null)
+				$element.callback = ()=>{}
+			resolve(el);
+		});
+	}
 	dieOrlive(currentRoute){
-		this.$container.innerHTML = '';
 		let $element = this.elements.find(element=>element.route == currentRoute);
 		if($element != undefined){
-			if(this.isHTMLElement($element.$element))
-				this.$container.appendChild($element.$element);
-			else
-				this.$container.innerHTML += $element.$element;
-			if($element.callback == null)
-				$element.callback = ()=>{};
-			$element.callback();
+			if(this.currentRoute != $element.route){
+				this.currentRoute = $element.route;
+				this.waitForCallback($element).then(el=>{
+					this.$container.innerHTML = '';
+					if(this.isHTMLElement(el.$element)){
+						this.$container.appendChild(el.$element);
+						el.callback();
+					}else{
+						this.$container.innerHTML += el.$element;
+						el.callback();
+					}
+				})
+			}
 		}else{
+			this.$container.innerHTML = '';
 			let $element404 = this.elements.find(el=> el.route == '*');
 			if($element404){
 				if(this.isHTMLElement($element404.$element)){
